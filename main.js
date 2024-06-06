@@ -35,28 +35,33 @@ export async function ambilDaftarAbsensi() {
   cuplikankueri.forEach((dok) => {
     hasil.push({
       id: dok.id,
-      nama: dok.data().nama,
-      alamat: dok.data().alamat,
-      nohp: dok.data().nohp,
+      Nis: dok.data().Nis,
+      Tanggal: dok.data().Tanggal,
+      Nama: dok.data().Nama,
+      Alamat: dok.data().Alamat,
+      Nohp: dok.data().Nohp,
+      Keterangan: dok.data().Keterangan,
+      Kelas: dok.data().Kelas
     });
   });
 
   return hasil;
 }
 
-export function formatAngka(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-export async function hapusdatapenjual(docId) {
-  await deleteDoc(doc(db, "Penjual", docId));
+export async function hapusdataAbsensi_siswa(docId) {
+  await deleteDoc(doc(db, "Absensi_siswa", docId));
 }
 
-export async function tambahPenjual(nama, alamat, nohp) {
+export async function tambahAbsensi(Tanggal, Nis, Nama, Alamat, Nohp, Kelas, Keterangan ) {
   try {
-    const dokRef = await addDoc(collection(db, "Penjual"), {
-      nama: nama,
-      alamat: alamat,
-      nohp: nohp
+    const dokRef = await addDoc(collection(db, "Absensi_siswa"), {
+     Tanggal: Tanggal,
+      Nis: Nis,
+      Nama: Nama,
+      Alamat: Alamat,
+      Nohp: Nohp,
+      Kelas: Kelas,
+      Keterangan: Keterangan
     });
     console.log('berhasil menambah data' + dok)
   } catch (e) {
@@ -64,17 +69,21 @@ export async function tambahPenjual(nama, alamat, nohp) {
   }
 }
 
-export async function ubahPenjual(docId, nama, alamat, nohp) {
-  await updateDoc(doc(db, "Penjual", docId), { 
-    nama: nama,
-    alamat: alamat,
-    nohp: nohp
+export async function ubahAbsensi(docId, Tanggal, Nis, Nama, Alamat, Nohp, Kelas, Keterangan) {
+  await updateDoc(doc(db, "Absensi_siswa", docId), { 
+     Tanggal: Tanggal,
+      Nis: Nis,
+      Nama: Nama,
+      Alamat: Alamat,
+      Nohp: Nohp,
+      Kelas: Kelas,
+      Keterangan: Keterangan
   
   });
 }
 
-export async function ambilPenjual(docId) {
-  const docRef = await doc(db, "Penjual", docId);
+export async function ambilAbsensi(docId) {
+  const docRef = await doc(db, "Absensi_siswa", docId);
   const docSnap = await getDoc(docRef);
   
   return await docSnap.data();
